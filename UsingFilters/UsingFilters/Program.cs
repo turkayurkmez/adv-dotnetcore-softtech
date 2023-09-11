@@ -1,16 +1,9 @@
-using DI.LifeTime.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<ISingletonGuid, SingletonGuid>();
-builder.Services.AddTransient<ITransientGuid, TransientGuid>();
-builder.Services.AddScoped<IScopedGuid, ScopedGuid>();
-builder.Services.AddTransient<GuidService>();
+
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -22,6 +15,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 
 app.UseRouting();
 
