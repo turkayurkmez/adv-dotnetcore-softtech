@@ -29,5 +29,11 @@ namespace MiddlewaresAndPipeline.Controllers
             })
             .ToArray();
         }
+
+        [HttpPost]
+        public IActionResult PostComment(Comment comment)
+        {
+            return Ok(comment);
+        }
     }
 }
