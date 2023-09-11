@@ -1,4 +1,4 @@
-﻿using MiddlewaresAndPipeline.Middlewares;
+﻿using MiddlewaresAndPipeline.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,8 +52,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<JSONIsolateMiddleware>();
-app.UseMiddleware<BadwordsFilterMiddleware>();
+//app.UseMiddleware<JSONIsolateMiddleware>();
+//app.UseMiddleware<BadwordsFilterMiddleware>();
+app.UseBadwordsFilter();
 
 app.UseAuthorization();
 
