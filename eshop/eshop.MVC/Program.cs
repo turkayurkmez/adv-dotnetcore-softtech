@@ -1,12 +1,4 @@
-﻿var builder = WebApplication.CreateBuilder(args);
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
-//tamamen aynı -ama daha okunabilir -
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.ClearProviders();
-    logging.AddConsole();
-});
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -31,13 +23,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Logger.LogInformation("uygulama başlatılıyor...");
-
-app.MapGet("/log", async (ILogger<Program> logger, HttpResponse response) =>
-{
-    logger.LogInformation("Log sayfasına çağrı gönderildi....");
-    await response.WriteAsync("Logging... Console'a bakınız...");
-});
 
 app.Run();

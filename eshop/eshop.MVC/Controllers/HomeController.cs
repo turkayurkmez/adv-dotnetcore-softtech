@@ -1,8 +1,8 @@
-﻿using LoggingInDotnetCore.Models;
+﻿using eshop.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace LoggingInDotnetCore.Controllers
+namespace eshop.MVC.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,11 +15,6 @@ namespace LoggingInDotnetCore.Controllers
 
         public IActionResult Index()
         {
-            _logger.LogInformation($"Index Action'u çalıştı! {DateTime.Now}");
-            _logger.LogWarning("Warning");
-            _logger.LogCritical("Critical");
-            _logger.LogError("Error");
-
             return View();
         }
 
