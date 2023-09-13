@@ -1,0 +1,10 @@
+﻿@model IEnumerable<eshop.Entities.Category>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a asp-action="Index" asp-controller="Home" asp-route-category="@item.Id" >@item.Name</a>   
+        </li>
+    }
+</ul>

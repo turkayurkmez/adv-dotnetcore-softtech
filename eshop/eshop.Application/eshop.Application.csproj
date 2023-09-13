@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eshop.DataTransferObjects\eshop.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\eshop.Data\eshop.Data.csproj" />
+  </ItemGroup>
+
 </Project>

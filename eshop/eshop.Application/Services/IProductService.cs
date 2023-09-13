@@ -1,9 +1,9 @@
-﻿using eshop.Entities;
+﻿using eshop.DataTransferObjects.Response;
 
 namespace eshop.Application.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetProducts();
+        IEnumerable<ProductCardResponse> GetProducts();
     }
 }
