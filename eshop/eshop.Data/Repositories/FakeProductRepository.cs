@@ -2,7 +2,7 @@
 
 namespace eshop.Data.Repositories
 {
-    public class FakeProductRepository : IProductRepositoryGeneral
+    public class FakeProductRepository : IProductRepository
     {
         IList<Product> products = new List<Product>();
         public FakeProductRepository()

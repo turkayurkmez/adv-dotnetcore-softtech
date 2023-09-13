@@ -2,20 +2,20 @@
 
 namespace eshop.Data.Repositories
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>, IRepositoryAsync<Product>
     {
         IList<Product> SearchProductsByName(string name);
-    }
-
-    public interface IProductRepositoryAsync : IRepositoryAsync<Product>
-    {
-
         Task<IList<Product>> SearchProductsByNameAsync(string name);
-
     }
 
-    public interface IProductRepositoryGeneral : IProductRepository, IProductRepositoryAsync
-    {
+    //Aşağıdaki yapılar, kodu kirleteceği için alternatif bir yapı oluşturdum.
+    //public interface IProductRepositoryAsync : IRepositoryAsync<Product>
+    //{      
 
-    }
+    //}
+
+    //public interface IProductRepositoryGeneral : IProductRepository, IProductRepositoryAsync
+    //{
+
+    //}
 }

@@ -6,10 +6,10 @@ namespace eshop.Application.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepositoryGeneral _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepositoryGeneral productRepository, IMapper mapper)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;

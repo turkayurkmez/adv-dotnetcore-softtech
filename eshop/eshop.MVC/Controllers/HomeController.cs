@@ -15,10 +15,21 @@ namespace eshop.MVC.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNo = 1)
         {
             var products = _productService.GetProducts();
-            return View(products);
+            int pageSize = 1;
+            var pageModel = new PageModel { CurrentPage = pageNo, PageSize = pageSize, TotalItemsCount = products.Count() };
+            var paginated = products.OrderBy(x => x.Id).Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+
+            PaginatedProductsViewModel paginatedProductsViewModel = new PaginatedProductsViewModel
+            {
+                PageModel = pageModel,
+                Products = paginated
+            };
+
+
+            return View(paginatedProductsViewModel);
         }
 
         public IActionResult Privacy()

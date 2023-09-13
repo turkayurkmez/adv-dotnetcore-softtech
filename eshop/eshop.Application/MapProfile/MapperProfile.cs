@@ -9,6 +9,7 @@ namespace eshop.Application.MapProfile
         public MapperProfile()
         {
             CreateMap<Product, ProductCardResponse>();
+            CreateMap<Category, CategoryMenuResponse>();
         }
     }
 }

@@ -1,18 +1,24 @@
-﻿using eshop.Entities;
+﻿using AutoMapper;
+using eshop.Data.Repositories;
+using eshop.DataTransferObjects.Response;
 
 namespace eshop.Application.Services
 {
     public class CategoryService : ICategoryService
     {
-        public IEnumerable<Category> GetCategories()
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            return new List<Category>()
-            {
-                new Category(){ Id=1, Name="Kırtasiye"},
-                new Category(){ Id=2, Name="Elektronik"},
-                new Category(){ Id=1, Name="Giyim"}
+            _categoryRepository = categoryRepository;
+            _mapper = mapper;
+        }
 
-            };
+        public IEnumerable<CategoryMenuResponse> GetCategories()
+        {
+            var categories = _categoryRepository.GetAll();
+            return _mapper.Map<IEnumerable<CategoryMenuResponse>>(categories);
+
         }
     }
 }

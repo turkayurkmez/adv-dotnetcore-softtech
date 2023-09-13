@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRepositoryGeneral, FakeProductRepository>();
+builder.Services.AddScoped<IProductRepository, FakeProductRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, FakeCategoryRepository>();
 
 var app = builder.Build();
 
