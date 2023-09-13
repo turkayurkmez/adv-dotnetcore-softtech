@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eshop.DataTransferObjects.Request;
 using eshop.DataTransferObjects.Response;
 using eshop.Entities;
 
@@ -10,6 +11,8 @@ namespace eshop.Application.MapProfile
         {
             CreateMap<Product, ProductCardResponse>();
             CreateMap<Category, CategoryMenuResponse>();
+            CreateMap<CreateNewProductRequest, Product>();
+            CreateMap<UpdateExistingProductRequest, Product>();
         }
     }
 }
