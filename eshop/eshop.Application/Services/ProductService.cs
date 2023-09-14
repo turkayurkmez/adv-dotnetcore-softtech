@@ -66,6 +66,11 @@ namespace eshop.Application.Services
             return response;
         }
 
+        public Task<bool> IsExists(int id)
+        {
+            return _productRepository.IsExistAsync(id);
+        }
+
         public async Task<IEnumerable<ProductCardResponse>> SearchProductsByNameAsync(string name)
         {
             var products = await _productRepository.SearchProductsByNameAsync(name);

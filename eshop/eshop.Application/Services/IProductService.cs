@@ -23,6 +23,8 @@ namespace eshop.Application.Services
         Task UpdateAsync(UpdateExistingProductRequest updateExistingProductRequest);
         Task DeleteAsync(int id);
 
+        Task<bool> IsExists(int id);
+
 
     }
 }

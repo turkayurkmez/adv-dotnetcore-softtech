@@ -1,5 +1,8 @@
 ﻿using eshop.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,27 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("db");
 
 builder.Services.AddInjections(connectionString);
+builder.Services.AddCors(option => option.AddPolicy("allow", builder =>
+{
+    builder.AllowAnyHeader();
+    builder.AllowAnyOrigin();
+    builder.AllowAnyMethod();
+}));
+
+//builder.Services.AddAuthentication("Basic").AddScheme<BasicOption, BasicHandler>("Basic", null);
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = "softtech.server",
+                        ValidAudience = "softtech.client",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bu-cumle-bizim-keyimiz"))
+                    };
+
+                });
 
 
 
@@ -42,6 +66,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("allow");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

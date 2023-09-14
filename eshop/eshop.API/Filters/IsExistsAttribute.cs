@@ -1,6 +1,12 @@
-﻿namespace eshop.API.Filters
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace eshop.API.Filters
 {
-    public class IsExistsAttribute
+    public class IsExistsAttribute : TypeFilterAttribute
     {
+        public IsExistsAttribute() : base(typeof(IsExistsFilter))
+        {
+
+        }
     }
 }

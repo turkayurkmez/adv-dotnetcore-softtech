@@ -1,11 +1,14 @@
-﻿using eshop.Application.Services;
+﻿using eshop.API.Filters;
+using eshop.Application.Services;
 using eshop.DataTransferObjects.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eshop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
 
@@ -17,7 +20,9 @@ namespace eshop.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
+
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productService.GetProductsAsync();
@@ -51,13 +56,13 @@ namespace eshop.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(CreateNewProductRequest createNewProductRequest)
         {
-            if (ModelState.IsValid)
-            {
-                var lastProductId = await _productService.CreateNewProductAsync(createNewProductRequest);
-                var keys = ModelState.Keys;
-                return CreatedAtAction(nameof(Find), routeValues: new { id = lastProductId }, value: null);
+            //if (ModelState.IsValid)
+            //{
+            var lastProductId = await _productService.CreateNewProductAsync(createNewProductRequest);
+            var keys = ModelState.Keys;
+            return CreatedAtAction(nameof(Find), routeValues: new { id = lastProductId }, value: null);
 
-            }
+            //}
 
             return BadRequest(ModelState);
         }
@@ -66,30 +71,32 @@ namespace eshop.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
+        [IsExists]
         public async Task<IActionResult> Update(int id, UpdateExistingProductRequest updateExistingProductRequest)
         {
-            if (id == updateExistingProductRequest.Id && await _productService.IsExists(id))
+            //if (await _productService.IsExists(id))
+            //{
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await _productService.UpdateAsync(updateExistingProductRequest);
-                    return Ok();
-                }
-                return BadRequest(ModelState);
+                await _productService.UpdateAsync(updateExistingProductRequest);
+                return Ok();
             }
-            return NotFound();
+            return BadRequest(ModelState);
+            //}
+            //return NotFound(new { message = $"{id} id'li ürün bulunamadı." });
         }
+        [IsExists]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _productService.IsExists(id))
-            {
-                await _productService.DeleteAsync(id);
-            }
-            return NotFound(new { message = $"{id} id'li ürün bulunamadı." });
+            //if (await _productService.IsExists(id))
+            //{
+            await _productService.DeleteAsync(id);
+            return Ok();
+            //}
+            //return NotFound(new { message = $"{id} id'li ürün bulunamadı." });
         }
 
     }
