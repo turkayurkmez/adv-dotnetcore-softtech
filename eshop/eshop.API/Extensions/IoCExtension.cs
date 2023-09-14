@@ -1,4 +1,5 @@
-﻿using eshop.Application.Services;
+﻿using eshop.Application.MapProfile;
+using eshop.Application.Services;
 using eshop.Data.Context;
 using eshop.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,11 @@ namespace eshop.API.Extensions
              });
 
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductRepository, FakeProductRepository>();
+            services.AddScoped<IProductRepository, EFProductRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, FakeCategoryRepository>();
+
+            services.AddAutoMapper(typeof(MapperProfile));
 
             return services;
         }

@@ -60,6 +60,12 @@ namespace eshop.Data.Repositories
 
         }
 
+        public Task<bool> IsExistAsync(int id)
+        {
+            return eshopDbContext.Products.AnyAsync(p => p.Id == id);
+
+        }
+
         public IList<Product> SearchProductsByName(string name)
         {
             return eshopDbContext.Products.Where(p => p.Name.Contains(name)).ToList();

@@ -19,7 +19,7 @@ namespace eshop.Application.Services
         Task<ProductCardResponse> GetProductAsync(int id);
 
         Task<IEnumerable<ProductCardResponse>> SearchProductsByNameAsync(string name);
-        Task CreateNewProductAsync(CreateNewProductRequest createNewProductRequest);
+        Task<int> CreateNewProductAsync(CreateNewProductRequest createNewProductRequest);
         Task UpdateAsync(UpdateExistingProductRequest updateExistingProductRequest);
         Task DeleteAsync(int id);
 

@@ -17,10 +17,11 @@ namespace eshop.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateNewProductAsync(CreateNewProductRequest createNewProductRequest)
+        public async Task<int> CreateNewProductAsync(CreateNewProductRequest createNewProductRequest)
         {
             var product = _mapper.Map<Product>(createNewProductRequest);
             await _productRepository.CreateAsync(product);
+            return product.Id;
         }
 
         public async Task DeleteAsync(int id)

@@ -1,21 +1,32 @@
-using eshop.Data.Context;
+﻿using eshop.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    var factory = options.InvalidModelStateResponseFactory;
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        var logger = context.HttpContext.RequestServices.GetService<ILogger<Program>>();
+                        logger.LogError($"{context.ActionDescriptor.DisplayName} action'unda {context.ModelState.ErrorCount} adet hata oluştu.\nÖzellikler: {string.Join(",", context.ModelState.Keys)}\n hatalar:{string.Join(',', context.ModelState["Name"])} ");
+
+                        return factory(context);
+                    };
+                });
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("db");
 
-builder.Services.AddDbContext<EshopDbContext>(option =>
-{
-    option.UseSqlServer(connectionString);
-});
+builder.Services.AddInjections(connectionString);
 
 
 

@@ -4,6 +4,7 @@ namespace eshop.Data.Repositories
 {
     public interface IProductRepository : IRepository<Product>, IRepositoryAsync<Product>
     {
+        Task<bool> IsExistAsync(int id);
         IList<Product> SearchProductsByName(string name);
         Task<IList<Product>> SearchProductsByNameAsync(string name);
     }
