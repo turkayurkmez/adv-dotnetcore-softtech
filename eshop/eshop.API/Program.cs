@@ -53,7 +53,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 });
 
 
-
+//Memory Cache: Spesifik bir veriyi bellekte saklar. Uygulamada arzu ettiğiniz her yerden bu verilere eişebilirsiniz.
+builder.Services.AddMemoryCache(option =>
+{
+    //default değerleri kullandık.
+});
+builder.Services.AddResponseCaching();
 
 var app = builder.Build();
 
@@ -68,8 +73,12 @@ app.UseHttpsRedirection();
 
 app.UseCors("allow");
 
+
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseResponseCaching();
 
 app.MapControllers();
 
